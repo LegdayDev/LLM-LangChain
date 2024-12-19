@@ -1,7 +1,7 @@
 import streamlit as st # Streamlit 라이브러리
 
 from dotenv import load_dotenv                            # 환경변수 라이브러리
-from llm import get_ai_message
+from llm import get_ai_response
 
 load_dotenv()  # 환경변수 불러오기
 
@@ -30,9 +30,9 @@ if user_question := st.chat_input(placeholder='소득세에 관련된 궁금한 
 
     with st.spinner("답변을 생성중입니다..."):
         # 챗봇(AI)
-        ai_mesesage = get_ai_message(user_question)
+        ai_response = get_ai_response(user_question)
         with st.chat_message("ai"):
-            st.write(ai_mesesage)
-        st.session_state.message_list.append({"role":"ai", "content":ai_mesesage})
+            ai_message = st.write_stream(ai_response)
+            st.session_state.message_list.append({"role":"ai", "content":ai_message})
 
 
